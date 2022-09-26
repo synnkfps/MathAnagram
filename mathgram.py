@@ -1,7 +1,6 @@
 import random
 
-op = '9+1*(-3)' # put your calc here
-
+op = '9+1*(-3)/(1)'
 op2 = op 
 print(eval(op2))
 operation = []
@@ -10,9 +9,12 @@ for i in op:
     operation.append(i)
 
 lista = []
+executados = []
 
 def bruteforce():
     global lista 
+    global executados 
+
     for i in range(99999999):
         random.shuffle(operation)
         try:
@@ -24,10 +26,12 @@ def bruteforce():
                     pass
 
                 if ac == eval(op2) and lista[-1] != op:
-                    print(''.join(operation), '=', eval(''.join(operation)))
+                    calc = ''.join(operation).replace('+-','-').replace('--','+').replace('(+','(').replace('*+','*')
+                    print(calc, '=', eval(calc))
                     break
                 else:
                     print(f'tentei {"".join(operation)} mas deu {ac}, o certo é {eval(op2)}')
+                    
         except:
             pass
 
